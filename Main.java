@@ -1,17 +1,18 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Scanner;
 
 public class Main extends JFrame {
-  private JButton buttonCounter, buttonReset;
-  private JLabel labelCount;
-  
-  private int clicks = 0;
+  private JCheckBox check;
+  private JTextField tf;
+  private JLabel l;
+  private Scanner myObj;
   
   public Main() {
-    createView()
+    createView();
     
-    setTitle("Click Me");
+    setTitle("CheckList");
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     pack();
     setLocationRelativeTo(null);
@@ -19,46 +20,19 @@ public class Main extends JFrame {
   }
   
   private void createView() {
-    JPanel panel = new JPanel();
-    getContentPane().add(panel);
+    tf = new JTextField();
+    tf.setBounds(50, 50, 150, 20);
+    l = new JLabel();
+    l.setBounds(50, 100, 250, 20);
+    myObj = new Scanner(System.in);
+    System.out.println("Enter a list item: ");
+    String listItem = myObj .nextLine();
+    check = new JCheckBox(listItem);
     
-    labelCount = newJLabel();
-    labelCount.setPreferredSize(new Dimension(200, 30));
-    panel.add(labelCount);
-    
-    updateCounter();
-    
-    buttonCounter = new JButton("Click me");
-    buttonCounter.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          clicks++;
-          updateCounter();
-        }
-      }
-    );
-    panel.add(buttonCounter);
-    
-    buttonReset = new JButton("Reset");
-    buttonReset.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          clicks = 0;
-          updateCounter();
-        }
-      }
-    );
-    panel.add(buttonReset);
-  }
-  
-  private void updateCounter() {
-    labelCount.setText("Clicked " + clicks + " times");
   }
   
   public static void main(String[] args) {
-    Swing.Utilities.invokeLater(new Runnable() {
+    swingUtilities.invokeLater(new Runnable() {
       public void run() {
         new Main().setVisible(true);
       }
